@@ -8,9 +8,9 @@ import { useLiveLogisticsData } from '../lib/useLiveLogisticsData';
 
 export function DashboardOverview() {
   const [branchCount, setBranchCount] = useState<number | undefined>(undefined);
-  const [activeDeliveries, setActiveDeliveries] = useState<number | null>(null);
-  const [waitingDeliveries, setWaitingDeliveries] = useState<number | null>(null);
-  const [availableDrivers, setAvailableDrivers] = useState<number | null>(null);
+  const [activeDeliveryCount, setActiveDeliveryCount] = useState<number | null>(null);
+  const [waitingDeliveryCount, setWaitingDeliveryCount] = useState<number | null>(null);
+  const [driverCount, setDriverCount] = useState<number | null>(null);
   
   // Real-time map data from new Hook
   const { drivers, deliveries } = useLiveLogisticsData();
@@ -35,7 +35,7 @@ export function DashboardOverview() {
       .then(res => res.json())
       .then(data => {
         if (data.success && typeof data.count === 'number' && Array.isArray(data.agents)) {
-          setAvailableDrivers(data.count);
+          setDriverCount(data.count);
           
           let activeSum = 0;
           let waitingSum = 0;
@@ -49,8 +49,8 @@ export function DashboardOverview() {
             }
           });
           
-          setActiveDeliveries(activeSum);
-          setWaitingDeliveries(waitingSum);
+          setActiveDeliveryCount(activeSum);
+          setWaitingDeliveryCount(waitingSum);
         }
       })
       .catch(err => console.error('Failed to fetch agents:', err));
