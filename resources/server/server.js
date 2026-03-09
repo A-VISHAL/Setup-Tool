@@ -60,8 +60,8 @@ const AgentLocation = require('./models/AgentLocation');
 const PickupLocation = require('./models/PickupLocation');
 const DeliveryAssignment = require('./models/DeliveryAssignment');
 
-// Serve static files from the React frontend
-app.use(express.static(path.join(__dirname, 'frontend/dist')));
+// Serve static files from the React frontend under the /manager path
+app.use('/manager', express.static(path.join(__dirname, 'frontend/dist')));
 
 // POST /api/agents/add — Register a new delivery agent (used by mobile app)
 app.post('/api/agents/add', async (req, res) => {
@@ -272,9 +272,14 @@ app.get('/api/deliveries', async (_req, res) => {
 });
 
 // SPA Fallback Route (catch-all for React Router)
-// This must be the last route registered.
-app.get('*', (req, res) => {
+// This must handle any route that starts with /manager/
+app.get('/manager/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend/dist', 'index.html'));
+});
+
+// Optional: Redirect root /manager to /manager/
+app.get('/manager', (req, res) => {
+  res.redirect('/manager/');
 });
 
 // ---------- Database Initialization ----------
