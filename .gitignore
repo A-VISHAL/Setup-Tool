@@ -7,6 +7,7 @@ node_modules/
 # Build artifacts
 build/
 dist/
+!resources/server/frontend/dist/
 *.spec
 
 # OS files
