@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MapWidget } from '../components/MapWidget';
 import { DeliveryTimeline } from '../components/DeliveryTimeline';
 import { useLiveLogisticsData } from '../lib/useLiveLogisticsData';
@@ -10,7 +10,7 @@ export function RouteMonitoring() {
   const [selectedDelivery, setSelectedDelivery] = useState<any>(undefined);
 
   // Initialize selected delivery once live tracking data is downloaded
-  React.useEffect(() => {
+  useEffect(() => {
     if (deliveries.length > 0 && !selectedDelivery) {
       setSelectedDelivery(deliveries.find(d => d.status === 'in-progress' && d.timeline));
     }
