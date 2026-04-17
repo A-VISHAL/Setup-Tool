@@ -1,4 +1,4 @@
-# Setup Tool
+# Setup Too
 
 A desktop-based setup tool for the OptiRoute Pro project. It helps users install the Node.js + Express server component onto their local machine.
 
